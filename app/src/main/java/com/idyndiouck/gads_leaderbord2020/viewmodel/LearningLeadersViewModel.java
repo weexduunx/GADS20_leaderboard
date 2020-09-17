@@ -1,6 +1,7 @@
 package com.idyndiouck.gads_leaderbord2020.viewmodel;
 
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,7 +14,7 @@ import com.idyndiouck.gads_leaderbord2020.model.LearningLeader;
 import java.util.List;
 
 public class LearningLeadersViewModel extends ViewModel {
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
     private MutableLiveData<List<LearningLeader>> learningLeaders;
     private MutableLiveData<Boolean> error = new MutableLiveData<>(false);
 

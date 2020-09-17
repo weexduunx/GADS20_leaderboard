@@ -1,13 +1,14 @@
 package com.idyndiouck.gads_leaderbord2020.viewmodel;
 
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.idyndiouck.gads_leaderbord2020.api.ApiResponseCallback;
-import com.idyndiouck.gads_leaderbord2020.api.GoogleFormsApiService;
+import com.idyndiouck.gads_leaderbord2020.api.GadsApiService;
 import com.idyndiouck.gads_leaderbord2020.model.Submission;
 
 public class SubmitViewModel extends ViewModel {
@@ -18,11 +19,11 @@ public class SubmitViewModel extends ViewModel {
 
     public void submit(Submission submission) {
         status.setValue(STATUS_NEUTRAL);
-        new Handler()
+        new Handler(Looper.getMainLooper())
                 .postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        GoogleFormsApiService.submitProject(submission, new ApiResponseCallback<Void>() {
+                        GadsApiService.submitProject(submission, new ApiResponseCallback<Void>() {
                             @Override
                             public void onResponse(Void response) {
                                 status.postValue(STATUS_OK);
