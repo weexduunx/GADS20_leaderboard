@@ -2,7 +2,7 @@ package com.idyndiouck.gads_leaderbord2020;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -43,33 +43,25 @@ public class SubmitActivity extends AppCompatActivity implements ConfirmDialogFr
             }
         });
 
-        findViewById(R.id.btn_back)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
+        findViewById(R.id.btn_back).setOnClickListener(view -> finish());
 
-        TextView txtFirstName = findViewById(R.id.txtFirstName);
-        TextView txtLastName = findViewById(R.id.txtLastName);
-        TextView txtEmail = findViewById(R.id.txtEmail);
-        TextView txtProjectUrl = findViewById(R.id.txtProjectUrl);
+        EditText txtFirstName = findViewById(R.id.txtFirstName);
+        EditText txtLastName = findViewById(R.id.txtLastName);
+        EditText txtEmail = findViewById(R.id.txtEmail);
+        EditText txtProjectUrl = findViewById(R.id.txtProjectUrl);
 
         findViewById(R.id.button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        submission.setFirstName(txtFirstName.getText().toString().trim());
-                        submission.setLastName(txtLastName.getText().toString().trim());
-                        submission.setEmail(txtEmail.getText().toString().trim());
-                        submission.setProjectUrl(txtProjectUrl.getText().toString().trim());
-                        boolean filledForm = submission.getFirstName().length() > 0 && submission.getLastName().length() > 0 && submission.getEmail().length() > 0 && submission.getProjectUrl().length() > 0;
-                        if (!filledForm)
-                            okDialogFragment.show(getSupportFragmentManager(), "SubmitActivity_OkDialog");
-                        else
-                            confirmDialogFragment.show(getSupportFragmentManager(), "SubmitActivity_ConfirmDialog");
-                    }
+                .setOnClickListener(view -> {
+                    submission.setFirstName(txtFirstName.getText().toString().trim());
+                    submission.setLastName(txtLastName.getText().toString().trim());
+                    submission.setEmail(txtEmail.getText().toString().trim());
+                    submission.setProjectUrl(txtProjectUrl.getText().toString().trim());
+
+                    // Instead of calling something on object submission : let the object it self decide since that decision is related to object it self
+                    if (!submission.isCorrect())
+                        okDialogFragment.show(getSupportFragmentManager(), "SubmitActivity_OkDialog");
+                    else
+                        confirmDialogFragment.show(getSupportFragmentManager(), "SubmitActivity_ConfirmDialog");
                 });
 
     }

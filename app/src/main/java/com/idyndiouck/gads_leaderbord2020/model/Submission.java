@@ -37,4 +37,8 @@ public class Submission {
     public void setProjectUrl(String projectUrl) {
         this.projectUrl = projectUrl;
     }
+
+    public boolean isCorrect(){
+        return firstName.length() > 0 && lastName.length() > 0 && email.length() > 0 && projectUrl.length() > 0;
+    }
 }
